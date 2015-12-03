@@ -13,5 +13,5 @@ public interface ConfigureService {
     //获得博客配置
     Configure getConfigured() throws IOException;
     //设置博客配置
-    void setConfigure(Configure configure) throws IOException;
+    void setConfigure(HttpServletRequest request,Configure configure) throws IOException;
 }
