@@ -9,6 +9,8 @@ import com.blog.utils.PageParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -132,6 +134,37 @@ public class ArticleServiceImpl implements ArticleService {
         articleDao.delCategory(id);
         for (int i = 0; i < selectedId.length;i++){
             articleDao.setCategory(id,selectedId[i]);
+        }
+    }
+
+    @Override
+    public String getPeek(int id) throws IOException {
+        return articleDao.getPeek(id);
+    }
+
+    @Override
+    public void increasePageView(HttpSession session,String articleId) throws IOException {
+        //session里面添加[read:1,2,3],代表浏览过id分别为1,2,3的文章
+        String read = (String) session.getAttribute("read");
+        //没有浏览过任何文章
+        if (read == null) {
+            session.setAttribute("read",articleId);
+        } else {
+            //已经阅读过的文章id
+            String[] readIds = read.split(",");
+            for (String id:readIds) {
+                //已经阅读过本篇文章
+                if (id.equals(articleId)) {
+                    return;
+                }
+            }
+        }
+        //到这说明没有浏览过本篇文章
+        articleDao.increaseReadNum(articleId);
+        if (read == null) {
+            session.setAttribute("read",articleId);
+        } else {
+            session.setAttribute("read",read + "," + articleId);
         }
     }
 }

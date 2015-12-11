@@ -184,7 +184,6 @@ public class ArticleDaoImpl implements ArticleDao {
         }finally {
             sqlSession.close();
         }
-
     }
 
     @Override
@@ -197,7 +196,6 @@ public class ArticleDaoImpl implements ArticleDao {
         }finally {
             sqlSession.close();
         }
-
     }
 
     @Override
@@ -210,6 +208,28 @@ public class ArticleDaoImpl implements ArticleDao {
         }finally {
             sqlSession.close();
         }
+    }
 
+    @Override
+    public String getPeek(int id) throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+        try {
+            ArticleMapper articleMapper = sqlSession.getMapper(ArticleMapper.class);
+            return articleMapper.getPeek(id);
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    @Override
+    public void increaseReadNum(String articleId) throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+        try {
+            ArticleMapper articleMapper = sqlSession.getMapper(ArticleMapper.class);
+            articleMapper.increaseReadNum(articleId);
+            sqlSession.commit();
+        }finally {
+            sqlSession.close();
+        }
     }
 }

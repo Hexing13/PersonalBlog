@@ -9,6 +9,7 @@ public class Article {
     private int id;
     private int author_Id;
     private String title;
+    private String peek;
     private Date time;
     private int read_Num;
     private int comment_Num;
@@ -17,9 +18,10 @@ public class Article {
     public Article() {
     }
 
-    public Article(int author_Id, String title, Date time, int read_Num, int comment_Num, String deleted) {
+    public Article(int author_Id, String title, String peek, Date time, int read_Num, int comment_Num, String deleted) {
         this.author_Id = author_Id;
         this.title = title;
+        this.peek = peek;
         this.time = time;
         this.read_Num = read_Num;
         this.comment_Num = comment_Num;
@@ -81,5 +83,13 @@ public class Article {
 
     public void setDeleted(String deleted) {
         this.deleted = deleted;
+    }
+
+    public String getPeek() {
+        return peek;
+    }
+
+    public void setPeek(String peek) {
+        this.peek = peek;
     }
 }

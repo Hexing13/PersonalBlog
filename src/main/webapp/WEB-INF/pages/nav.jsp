@@ -63,8 +63,8 @@
 </div>
 
 <%--导航兰会在不同页面出现，不能用相对路径--%>
-<script src="${pageContext.request.contextPath}/js/jquery-2.1.4.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <%--注销事件--%>
 <script>

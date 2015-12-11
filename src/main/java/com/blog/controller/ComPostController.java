@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -83,10 +84,13 @@ public class ComPostController {
 
 
     @RequestMapping(value = "/article",method = RequestMethod.GET)
-    public String showCom(Model model,@RequestParam("id") String id,ModelMap modelMap) throws IOException{
+    public String showCom(HttpSession session,Model model,@RequestParam("id") String id) throws IOException{
         int idarc = Integer.parseInt(id);
         List<Comment> commentsList;
         List<Comment> replyList;
+
+        //增加文章浏览量
+        articleService.increasePageView(session,id);
 
         synchronized (ComPostController.class) {
             commentsList = commentService.selectCom(idarc);  //将所有的评论查找出来

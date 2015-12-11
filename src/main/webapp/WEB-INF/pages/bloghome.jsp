@@ -21,7 +21,7 @@
     <title>首页</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/starter-template.css" rel="stylesheet">
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="post-content">
-                            <p>Ghost 0.7.0 已经正式发布了！此版本主要对后台 UI 的重构，既包含重新设计，也包含底层功能的重大改进。0.7.0 还为即将到来的 API 做了很多铺垫工作。 Ghost 0.7.0 的主要改进 [新增] 设计新后台界面 [新增] 后台能够搜索博文和用户 [新增] 安</p>
+                            <p style="word-wrap:break-word">${article.peek}</p>
                         </div>
                         <div class="post-permalink text-right">
                             <a href="${pageContext.request.contextPath}/article?id=${article.id}" class="btn btn-default">阅读全文</a>

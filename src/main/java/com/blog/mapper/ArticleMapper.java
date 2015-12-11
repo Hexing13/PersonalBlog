@@ -15,7 +15,7 @@ public interface ArticleMapper {
     @Select("select * from article")
     List<Article> getAllArticle();
 
-    @Insert("insert into article values(null,#{author_Id},#{title},#{time},#{read_Num},#{comment_Num},#{deleted})")
+    @Insert("insert into article values(null,#{author_Id},#{title},#{peek},#{time},#{read_Num},#{comment_Num},#{deleted})")
     void insert(Article article);
 
     @Select("select max(id) from article")
@@ -57,4 +57,10 @@ public interface ArticleMapper {
     //设置新的文章分类
     @Insert("insert into article_category(article_id,category_id) values(#{id},#{selectedId})")
     void setCategory(@Param("id") int id, @Param("selectedId") int selectedId);
+
+    @Select("select peek from article where id=#{id}")
+    String getPeek(int id);
+
+    @Update("update article set read_num = read_num + 1 where id = #{articleId}")
+    void increaseReadNum(String articleId);
 }

@@ -40,7 +40,7 @@ public class PostController {
      * @throws IOException
      */
     @RequestMapping(value = "postedit" ,method = RequestMethod.POST)
-    public @ResponseBody String postEdit(HttpSession session, @RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("categoryIds") String categoryIds) throws IOException {
+    public @ResponseBody String postEdit(HttpSession session, @RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("plainContent") String plainContent, @RequestParam("categoryIds") String categoryIds) throws IOException {
         //根据session中的level判断是不是管理员
         String level = (String) session.getAttribute("level");
         //是管理员,调用服务将文章写入数据库
@@ -52,9 +52,19 @@ public class PostController {
 
             Date nowTime = new Date(System.currentTimeMillis());
 
+            //判断文章预览内容的长度
+            if (plainContent.length() > 100) {
+                plainContent = plainContent.substring(0,100);
+            }
+
+            //判断题目的长度
+            if (title.length() > 50) {
+                title = title.substring(0,50);
+            }
+
             //确保获得到的最新存储的文章id和内容一致
             synchronized (PostController.class) {
-                articleService.insert(new Article((Integer) session.getAttribute("id"),title,nowTime,0,0,"n"));
+                articleService.insert(new Article((Integer) session.getAttribute("id"),title, plainContent, nowTime,0,0,"n"));
                 //获得刚存储的文章的id
                 int latestId = articleService.getLatestId();
                 //存储文章和类别的关联信息
